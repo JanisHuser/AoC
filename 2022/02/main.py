@@ -24,31 +24,7 @@ class RPS(IntEnum):
         return -1
 
 
-DELIMITER = ' '
-def read(file: str, parsing: List[Tuple[str, any]]) -> List[List[any]]:
-    def replace(part: str) -> any:
-        part = part.strip()
-        for parse, repl in parsing:
 
-            if part is not parse:
-                continue
-
-            return repl
-        return part
-
-    def parse_line(line: str) -> List[any]:
-        parts = line.split(DELIMITER)
-
-        parsed_line = [ replace(part) for part in parts ]
-
-        return parsed_line
-
-    
-    parsed_lines = []
-    lines = open(file, 'r').readlines()
-
-
-    return [ parse_line(line) for line in lines]
 
 
     
@@ -66,22 +42,34 @@ def main():
             ('Z', RPS.SCISSORS)
         ])
     
-    score = 0
-    for opp, me in lines:
+    def part1():
+        score = 0
+        for opp, me in lines:
 
-        beats = me.compare(opp)
+            beats = me.compare(opp)
 
-        if beats == 0:
-            score += 3
-        elif beats == 1:
-            score += 6
-            
+            if beats == 0:
+                score += 3
+            elif beats == 1:
+                score += 6
+            score += me.value
 
-        score += me.value
+        print (score)
+
+    
+    def part2():
+        score = 0
+
+        new_lines = []
+        lines = read('/config/workspace/AoC/2022/02/input.txt')
+
+        for opp, me in lines:
+            me = opp
+            new_lines.append('{opp} {me}')
+
 
 
     
-    print (score)
 
 if __name__ == '__main__':
     main()

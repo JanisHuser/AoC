@@ -75,13 +75,13 @@ with open('/config/workspace/AoC/2022/12/input.txt', "r") as file:
 GRID, START, END, A_LIST = parse_grid(data)
 
 
-def part_one():
+def part1():
     return sibling_search(GRID, [START], END)
 
 
-def part_two():
+def part2():
     return sibling_search(GRID, A_LIST, END)
 
 
-print(f"Part 1: {part_one()}")  # 339
-print(f"Part 2: {part_two()}")  # 332
+print(f"Part 1: {part1()}")
+print(f"Part 2: {part2()}")

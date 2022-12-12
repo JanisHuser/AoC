@@ -1,4 +1,8 @@
 import math
+# from s import 
+
+import os
+
 
 class Operation():
 
@@ -11,7 +15,7 @@ class Operation():
         self._operand = action[0]
 
         if action[1] != 'old':
-            self._next = int(action[1])
+            self._next = (int(action[1]))
         else:
             self._next = False
 
@@ -19,7 +23,7 @@ class Operation():
         what = self._next
         if not what:
             what = old
-        if (self._operand == '*'):
+        if (self._operand == '*'):            
             return old * what
         elif self._operand == '+':
             return old + what
@@ -31,7 +35,7 @@ class Test():
     def __init__(self, line):
         test = line.strip().replace('Test: ','')
         self._action = test.split(' ')[0]
-        self._numeric = int(test.split(' ')[2])
+        self._numeric = (int(test.split(' ')[2]))
 
 
     def execute(self, number):
@@ -45,13 +49,13 @@ class Test():
 
 class Monkey():
 
-    WORRY_LEVEL_DIVISION = 1
+    WORRY_LEVEL_DIVISION = 3
     def parse_id(self, line):
         self._id = int(line.replace(':', '').split(' ')[1])
 
     def parse_starting_items(self, line):
         line = line.strip().replace('Starting items:', '')
-        self._items = [int(x) for x in line.split(', ')]
+        self._items = [(int(x)) for x in line.split(', ')]
 
     def parse_test(self, line):
         self._test = Test(line)
@@ -83,6 +87,7 @@ class Monkey():
         for item in self._items:
             self._inspection_count += 1
             new_item = self._operation.execute(item)
+
             
 
             # new_item = math.floor(new_item/Monkey.WORRY_LEVEL_DIVISION)
@@ -109,7 +114,7 @@ class Monkey():
 def main():
 
 
-    file = '/config/workspace/AoC/2022/11/input.txt'
+    file = os.getcwd() + "/input.txt"
     lines = lines = open(file, 'r').readlines()
 
     monkeys = []
@@ -124,7 +129,7 @@ def main():
         else:
             monkey_l.append(line.strip())
 
-
+    lcm = math.lcm(*[m._test._numeric for m in monkeys])
     def do_round():
         for monkey in monkeys:
             new_items = monkey.inspect()
